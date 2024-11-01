@@ -2,7 +2,7 @@ package com.example.apirestdisney.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CharacterDetail(
+data class Character(
     @SerializedName("data")
     var data: List<Data>
 )
