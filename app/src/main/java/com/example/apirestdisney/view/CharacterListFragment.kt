@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.apirestdisney.R
 import com.example.apirestdisney.data.remote.DisneyService
 import com.example.apirestdisney.data.remote.model.Character
 import com.example.apirestdisney.databinding.FragmentCharacterListBinding
 import com.example.apirestdisney.util.Constants
+import com.example.apirestdisney.view.adapters.CharacterAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,8 +51,18 @@ class CharacterListFragment : Fragment() {
             override fun onResponse(p0: Call<Character>, response: Response<Character>) {
                 binding.pbLoading.visibility = View.INVISIBLE
 
-                Log.d(Constants.LOGTAG, response.toString())
-                Log.d(Constants.LOGTAG, response.body().toString())
+                //Log.d(Constants.LOGTAG, response.toString())
+                //Log.d(Constants.LOGTAG, response.body().toString())
+                val characterList = response.body()?.data ?: emptyList()  // Extraemos solo la lista de datos
+                binding.apply {
+                    rvGames.layoutManager = LinearLayoutManager(requireActivity())
+                    rvGames.adapter = CharacterAdapter(characterList){ character ->
+                        //Click al elemento
+                        Log.d(Constants.LOGTAG, character.name)
+                    }
+
+                }
+
             }
 
             override fun onFailure(p0: Call<Character>, p1: Throwable) {
