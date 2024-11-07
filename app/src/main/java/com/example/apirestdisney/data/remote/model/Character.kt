@@ -8,6 +8,8 @@ data class Character(
 )
 
 data class Data (
+    @SerializedName("_id")
+    var id: Int,
     @SerializedName("name")
     var name: String,
     @SerializedName("imageUrl")
