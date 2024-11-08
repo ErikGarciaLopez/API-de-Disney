@@ -1,6 +1,7 @@
 package com.example.apirestdisney.data.remote
 
 import com.example.apirestdisney.data.remote.model.Character
+import com.example.apirestdisney.data.remote.model.CharacterDetail
 import com.example.apirestdisney.data.remote.model.Data
 import retrofit2.Call
 import retrofit2.http.GET
@@ -19,6 +20,6 @@ interface DisneyService {
     @GET("character/{id}")
     fun getCharacterDetail(
         @Path("id") id: Int
-    ): Call<Data>
+    ): Call<CharacterDetail>
 
 }

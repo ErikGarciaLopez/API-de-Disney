@@ -59,6 +59,15 @@ class CharacterListFragment : Fragment() {
                     rvGames.adapter = CharacterAdapter(characterList){ character ->
                         //Click al elemento
                         Log.d(Constants.LOGTAG, character.name)
+
+                        character.id?.let{ id ->
+                            //Mandar al segundo fragment el id
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, CharacterDetailFragment.newInstance(id))
+                                .addToBackStack(null)
+                                .commit()
+                        }
+
                     }
 
                 }

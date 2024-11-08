@@ -19,3 +19,21 @@ data class Data (
     @SerializedName("films")
     var films: List<String>
 )
+
+data class CharacterDetail(
+    @SerializedName("data")
+    val data: CharacterData
+)
+
+data class CharacterData(
+    @SerializedName("_id")
+    val id: Int,
+    @SerializedName("name")
+    val name: String?,
+    @SerializedName("imageUrl")
+    val imageUrl: String?,
+    @SerializedName("createdAt")
+    val createdAt: String?,
+    @SerializedName("films")
+    val films: List<String>?
+)
