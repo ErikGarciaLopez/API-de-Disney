@@ -15,25 +15,21 @@ data class Data (
     @SerializedName("imageUrl")
     var imageUrl: String,
     @SerializedName("createdAt")
-    var createdAt: String,
-    @SerializedName("films")
-    var films: List<String>
+    var createdAt: String
 )
 
 data class CharacterDetail(
     @SerializedName("data")
-    val data: CharacterData
+    var data: CharacterData
 )
 
 data class CharacterData(
     @SerializedName("_id")
-    val id: Int,
+    var id: Int,
     @SerializedName("name")
-    val name: String?,
+    var name: String?,
     @SerializedName("imageUrl")
-    val imageUrl: String?,
-    @SerializedName("createdAt")
-    val createdAt: String?,
+    var imageUrl: String?,
     @SerializedName("films")
-    val films: List<String>?
+    var films: List<String>?
 )
