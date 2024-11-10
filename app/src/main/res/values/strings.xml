@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">API REST disney</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_loading_data">Error al cargar los datos. Por favor, intenta de nuevo.</string>
+    <string name="error_no_connection">No hay conexión disponible. Por favor, verifica tu conexión a internet.</string>
+    <string name="error_id_unavailable">Error: ID del personaje no disponible</string>
+    <string name="error_name_unavailable">Nombre no disponible</string>
+    <string name="films_unavailable">Películas no disponibles</string>
+    <string name="error_character_data_unavailable">Error: Datos del personaje no disponibles</string>
+    <string name="error_character_not_found">Personaje no encontrado</string>
+    <string name="error_server">Error en el servidor</string>
+    <string name="error_loading_data_2">Error al cargar los datos</string>
+    <string name="error_no_connection_short">No hay conexión disponible</string>
+    <string name="no_hay_conexion_disponible">No hay conexión disponible</string>
+    <string name="reintentar">Reintentar</string>
+    <string name="peliculas">Películas</string>
+    <string name="disney">Disney</string>
 </resources>

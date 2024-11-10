@@ -83,7 +83,7 @@
                     app:layout_constraintStart_toEndOf="@id/ivDeveloperIcon"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="8dp"
-                    android:text="Disney"/>
+                    android:text="@string/disney"/>
 
                 <ImageView
                     android:id="@+id/ivCalendarIcon"

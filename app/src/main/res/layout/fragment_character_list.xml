@@ -6,20 +6,47 @@
     android:background="@color/blue_bg"
     tools:context=".view.CharacterListFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGames"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <ProgressBar
         android:id="@+id/pbLoading"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:indeterminateDrawable="@drawable/loading_anim"
-        android:indeterminateDuration="1500"
         android:layout_gravity="center"
-        />
+        android:indeterminateDrawable="@drawable/loading_anim"
+        android:indeterminateDuration="1500" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGames"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/errorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/no_hay_conexion_disponible"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reintentar"
+            android:padding="12dp"
+            style="@style/Widget.MaterialComponents.Button" />
+
+    </LinearLayout>
 
 </FrameLayout>

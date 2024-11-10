@@ -24,8 +24,9 @@ class CharacterDetailFragment : Fragment() {
 
     private var _binding: FragmentCharacterDetailBinding? = null
     private val binding get() = _binding!!
-
     private var id: Int? = null
+    private lateinit var disneyService: DisneyService
+    private lateinit var retrofit: Retrofit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +35,9 @@ class CharacterDetailFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,58 +45,128 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRetrofit()
+        configRetryButton()
+        cargarCharacterDetail()
+    }
 
-        val retrofit = Retrofit.Builder()
+    private fun setupRetrofit() {
+        retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val disneyService = retrofit.create(DisneyService::class.java)
+        disneyService = retrofit.create(DisneyService::class.java)
+    }
 
-        //val call = disneyService.getCharacterDetail(id)
-        val call = disneyService.getCharacterDetail(id!!)
+    private fun configRetryButton() {
+        binding.btnRetry.setOnClickListener {
+            mostrarLoading()
+            cargarCharacterDetail()
+        }
+    }
 
-        call.enqueue(object: Callback<CharacterDetail> {
-            override fun onResponse(call: Call<CharacterDetail>, response: Response<CharacterDetail>) {
-                Log.d(Constants.LOGTAG, "URL llamada: ${call.request().url}")
+    private fun cargarCharacterDetail() {
+        id?.let { characterId ->
+            val call = disneyService.getCharacterDetail(characterId)
 
-                if (response.isSuccessful) {
-                    val characterDetail = response.body()
-                    Log.d(Constants.LOGTAG, "Respuesta completa: ${response.body()}")
+            call.enqueue(object : Callback<CharacterDetail> {
+                override fun onResponse(
+                    call: Call<CharacterDetail>,
+                    response: Response<CharacterDetail>
+                ) {
+                    Log.d(Constants.LOGTAG, "URL llamada: ${call.request().url}")
 
-                    characterDetail?.data?.let { data ->
-                        Log.d(Constants.LOGTAG, "ID del personaje: ${data.id}")
-                        Log.d(Constants.LOGTAG, "Nombre del personaje: ${data.name}")
-
-                        binding.apply {
-                            pbLoading.visibility = View.INVISIBLE
-                            tvTitle.text = data.name ?: "Nombre no disponible"
-
-                            Picasso.get()
-                                .load(data.imageUrl)
-                                .placeholder(R.drawable.default_character)
-                                .error(R.drawable.default_character)
-                                .into(binding.ivImage)
-
-                            tvListFilms.text = data.films?.joinToString(separator = "\n") ?: "Películas no disponibles"
-
-                        }
+                    if (response.isSuccessful) {
+                        manejarSuccessfulResponse(response.body())
+                    } else {
+                        manejarErrorResponse(response)
                     }
-                } else {
-                    Log.e(Constants.LOGTAG, "Error body: ${response.errorBody()?.string()}")
-                    Log.e(Constants.LOGTAG, "Error code: ${response.code()}")
-                    binding.pbLoading.visibility = View.INVISIBLE
                 }
+
+                override fun onFailure(call: Call<CharacterDetail>, t: Throwable) {
+                    manejarFailure(t)
+                }
+            })
+        } ?: run {
+            manejarError(getString(R.string.error_id_unavailable))
+        }
+    }
+
+    private fun manejarSuccessfulResponse(characterDetail: CharacterDetail?) {
+        characterDetail?.data?.let { data ->
+            Log.d(Constants.LOGTAG, "ID del personaje: ${data.id}")
+            Log.d(Constants.LOGTAG, "Nombre del personaje: ${data.name}")
+
+            ocultarLoading()
+            ocultarError()
+            mostrarContenido()
+
+            binding.apply {
+                tvTitle.text = data.name ?: getString(R.string.error_name_unavailable)
+                tvListFilms.text = data.films?.joinToString(separator = "\n") ?: getString(R.string.films_unavailable)
+
+                Picasso.get()
+                    .load(data.imageUrl)
+                    .placeholder(R.drawable.default_character)
+                    .error(R.drawable.default_character)
+                    .into(ivImage)
             }
+        } ?: manejarError(getString(R.string.error_character_data_unavailable))
+    }
 
+    private fun manejarErrorResponse(response: Response<CharacterDetail>) {
+        Log.e(Constants.LOGTAG, "Error body: ${response.errorBody()?.string()}")
+        Log.e(Constants.LOGTAG, "Error code: ${response.code()}")
 
-            override fun onFailure(call: Call<CharacterDetail>, t: Throwable) {
-                binding.pbLoading.visibility = View.INVISIBLE
-                Log.e(Constants.LOGTAG, "Error de conexión: ${t.message}")
-            }
-        })
+        val errorMessage = when (response.code()) {
+            404 -> getString(R.string.error_character_not_found)
+            500 -> getString(R.string.error_server)
+            else -> getString(R.string.error_loading_data_2)
+        }
+        manejarError(errorMessage)
+    }
 
+    private fun manejarFailure(t: Throwable) {
+        Log.e(Constants.LOGTAG, "Error de conexión: ${t.message}")
+        manejarError(getString(R.string.error_no_connection_short))
+    }
 
+    private fun manejarError(message: String) {
+        ocultarLoading()
+        ocultarContenido()
+        mostrarError(message)
+    }
+
+    private fun mostrarLoading() {
+        binding.apply {
+            pbLoading.visibility = View.VISIBLE
+            errorLayout.visibility = View.GONE
+            scrollView.visibility = View.GONE
+        }
+    }
+
+    private fun ocultarLoading() {
+        binding.pbLoading.visibility = View.GONE
+    }
+
+    private fun mostrarError(message: String) {
+        binding.apply {
+            errorLayout.visibility = View.VISIBLE
+            tvError.text = message
+        }
+    }
+
+    private fun ocultarError() {
+        binding.errorLayout.visibility = View.GONE
+    }
+
+    private fun mostrarContenido() {
+        binding.scrollView.visibility = View.VISIBLE
+    }
+
+    private fun ocultarContenido() {
+        binding.scrollView.visibility = View.GONE
     }
 
     override fun onDestroy() {
@@ -103,11 +175,12 @@ class CharacterDetailFragment : Fragment() {
     }
 
     companion object {
-        @JvmStatic fun newInstance(id: Int) =
-                CharacterDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putInt(ARG_ID, id)
-                    }
+        @JvmStatic
+        fun newInstance(id: Int) =
+            CharacterDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_ID, id)
                 }
+            }
     }
 }

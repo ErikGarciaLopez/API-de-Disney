@@ -42,6 +42,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -90,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/ubuntu_bold"
-                        android:text="Películas"
+                        android:text="@string/peliculas"
                         android:textColor="@color/blue_disney"
                         android:textSize="20sp" />
 
@@ -116,9 +117,51 @@
         android:id="@+id/pbLoading"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:indeterminateDrawable="@drawable/loading_anim"
-        android:indeterminateDuration="1500"
         android:layout_gravity="center"
-        />
+        android:indeterminateDrawable="@drawable/loading_anim"
+        android:indeterminateDuration="1500" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/errorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="32dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/blue_bg"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeColor="@color/blue_disney">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/ubuntu"
+                android:text="@string/no_hay_conexion_disponible"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_bold"
+                android:padding="12dp"
+                android:text="@string/reintentar"
+                app:cornerRadius="8dp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
