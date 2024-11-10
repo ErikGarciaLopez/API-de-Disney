@@ -3,11 +3,8 @@ package com.example.apirestdisney.view.adapters
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.apirestdisney.R
-import com.example.apirestdisney.data.remote.model.Character
 import com.example.apirestdisney.data.remote.model.Data
 import com.example.apirestdisney.databinding.CharacterElementBinding
-import com.example.apirestdisney.databinding.FragmentCharacterListBinding
-import com.example.apirestdisney.view.CharacterListFragment
 import java.text.SimpleDateFormat
 import java.util.Locale
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#141A31"
+    android:background="@color/blue_bg"
     tools:context=".view.CharacterDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -50,9 +50,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#1D2543"
+                app:cardBackgroundColor="@color/blue_bg"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
+                app:strokeColor="@color/blue_disney"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -73,9 +74,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="#1D2543"
+                app:cardBackgroundColor="@color/blue_bg"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
+                app:strokeColor="@color/blue_disney"
                 app:layout_constraintTop_toBottomOf="@id/cardTitle">
 
                 <LinearLayout
@@ -89,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/ubuntu_bold"
                         android:text="Películas"
-                        android:textColor="#3FE0DD"
+                        android:textColor="@color/blue_disney"
                         android:textSize="20sp" />
 
                     <TextView
@@ -110,12 +112,13 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
+    <ProgressBar
         android:id="@+id/pbLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:indeterminateDrawable="@drawable/loading_anim"
+        android:indeterminateDuration="1500"
         android:layout_gravity="center"
-        android:indeterminate="true"
-        app:indicatorColor="#3FE0DD" />
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

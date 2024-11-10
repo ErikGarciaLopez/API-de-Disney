@@ -3,7 +3,6 @@ package com.example.apirestdisney.view.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.apirestdisney.data.remote.model.Character
 import com.example.apirestdisney.data.remote.model.Data
 import com.example.apirestdisney.databinding.CharacterElementBinding
 

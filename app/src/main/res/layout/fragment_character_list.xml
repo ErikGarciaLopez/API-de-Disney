@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#141A31"
+    android:background="@color/blue_bg"
     tools:context=".view.CharacterListFragment">
 
     <ProgressBar
         android:id="@+id/pbLoading"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:indeterminateDrawable="@drawable/loading_anim"
+        android:indeterminateDuration="1500"
         android:layout_gravity="center"
         />
 

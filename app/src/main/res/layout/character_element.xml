@@ -4,32 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="@drawable/custom_ripple"
     android:padding="8dp">
 
-    <!-- Card Container -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="140dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
+        app:strokeColor="@color/blue_disney"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Background with gradient -->
         <View
             android:id="@+id/viewBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_game"/>
+            android:background="@color/blue_bg"/>
 
-        <!-- Content Container -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp">
 
-            <!-- Character Image -->
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivThumbnail"
                 android:layout_width="90dp"
@@ -40,9 +38,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius="12dp"
                 app:riv_border_width="2dp"
-                app:riv_border_color="#3FE0DD"/>
+                app:riv_border_color="@color/blue_disney"/>
 
-            <!-- Info Container -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -50,13 +47,12 @@
                 app:layout_constraintStart_toEndOf="@id/ivThumbnail"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <!-- Title -->
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ubuntu_bold"
-                    android:textColor="#CBD5ED"
+                    android:textColor="@color/white_gray"
                     android:textSize="22sp"
                     android:maxLines="2"
                     android:ellipsize="end"
@@ -65,7 +61,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="Character Name"/>
 
-                <!-- Developer with Icon -->
                 <ImageView
                     android:id="@+id/ivDeveloperIcon"
                     android:layout_width="16dp"
@@ -74,7 +69,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tvDeveloper"
                     app:layout_constraintBottom_toBottomOf="@id/tvDeveloper"
-                    app:tint="#3FE0DD"/>
+                    app:tint="@color/blue_disney"/>
 
                 <TextView
                     android:id="@+id/tvDeveloper"
@@ -82,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/ubuntu"
-                    android:textColor="#3FE0DD"
+                    android:textColor="@color/blue_disney"
                     android:textSize="14sp"
                     app:layout_constraintTop_toBottomOf="@id/tvTitle"
                     app:layout_constraintStart_toEndOf="@id/ivDeveloperIcon"
@@ -90,7 +85,6 @@
                     android:layout_marginTop="8dp"
                     android:text="Disney"/>
 
-                <!-- Release Date with Icon -->
                 <ImageView
                     android:id="@+id/ivCalendarIcon"
                     android:layout_width="16dp"
@@ -99,7 +93,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tvReleased"
                     app:layout_constraintBottom_toBottomOf="@id/tvReleased"
-                    app:tint="#4A5B82"/>
+                    app:tint="@color/gray"/>
 
                 <TextView
                     android:id="@+id/tvReleased"
@@ -107,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/ubuntu"
-                    android:textColor="#4A5B82"
+                    android:textColor="@color/gray"
                     android:textSize="14sp"
                     android:layout_marginTop="4dp"
                     app:layout_constraintTop_toBottomOf="@id/tvDeveloper"
