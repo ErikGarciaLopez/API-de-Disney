@@ -2,6 +2,7 @@ package com.example.apirestdisney.view.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.apirestdisney.R
 import com.example.apirestdisney.data.remote.model.Character
 import com.example.apirestdisney.data.remote.model.Data
 import com.example.apirestdisney.databinding.CharacterElementBinding
@@ -19,7 +20,8 @@ class CharacterViewHolder(
 
         Glide.with(binding.root.context)
             .load(character.imageUrl)
-            //TODO: poner .error(R.drawable.background_character) 1:34:30 y tambien placeholder
+            .placeholder(R.drawable.default_character) //Proceso de carga
+            .error(R.drawable.default_character) //Si no se pudo obtener
             .into(binding.ivThumbnail)
 
         binding.tvReleased.text = formatDate(character.createdAt)

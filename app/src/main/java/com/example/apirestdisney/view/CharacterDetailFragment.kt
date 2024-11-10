@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.apirestdisney.R
 import com.example.apirestdisney.data.remote.DisneyService
 import com.example.apirestdisney.data.remote.model.CharacterDetail
 import com.example.apirestdisney.databinding.FragmentCharacterDetailBinding
@@ -71,6 +72,8 @@ class CharacterDetailFragment : Fragment() {
 
                             Picasso.get()
                                 .load(data.imageUrl)
+                                .placeholder(R.drawable.default_character)
+                                .error(R.drawable.default_character)
                                 .into(binding.ivImage)
 
                             tvListFilms.text = data.films?.joinToString(separator = "\n") ?: "Películas no disponibles"
